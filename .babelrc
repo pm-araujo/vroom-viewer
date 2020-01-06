@@ -1,0 +1,19 @@
+{
+  "ignore": [
+    "node_modules"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "extensions": [".js", ".jsx", ".scss"],
+        "alias": {
+          "@containers": "./src/containers/index.js",
+          "@store": "./src/store",
+          "@utils": "./src/utils"
+        }
+      }
+    ], "@babel/plugin-proposal-export-namespace-from"
+  ]
+}
