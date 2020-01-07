@@ -1,5 +1,6 @@
 import { LOAD_SOLUTION, SET_STATUS, LoadStatus } from './types';
 
+import { setVehicles } from '../settings/actions';
 
 const readJSONFile = inputFile => new Promise((resolve, reject) => {
     const tempFileReader = new FileReader();
@@ -28,17 +29,22 @@ export const loadSolution = file => (dispatch) => {
   dispatch(setStatus({ status: LoadStatus.LOADING }));
 
   return readJSONFile(file)
-    .then(data => {
-      const { hosts, vehiclesPerDay, vehiclesPerWeek } = data;
+  .then(data => {
+    const { vroom, meta } = data;
+    const { routes: vehicles } = vroom.output;
+    const { hosts, vehiclesPerDay, vehiclesPerWeek } = meta;
 
-      return dispatch({
-        type: LOAD_SOLUTION,
-        payload: {
-          hosts,
-          vehiclesPerDay,
-          vehiclesPerWeek
-        }
-      });
+    dispatch(setVehicles(vehicles.map((v, i) => i)));
+
+    return dispatch({
+      type: LOAD_SOLUTION,
+      payload: {
+        hosts,
+        vehicles,
+        vehiclesPerDay,
+        vehiclesPerWeek
+      }
+    });
     })
     .catch(err => {
       console.error(err);

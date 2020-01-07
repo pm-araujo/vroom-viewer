@@ -1,0 +1,23 @@
+.ButtonSelect {
+  display: flex;
+  flex-direction: column;
+  justify-content:  space-between;
+  align-content: space-between;
+  padding: 10px;
+}
+
+.ButtonSelect:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ButtonSelect + .ButtonSelect {
+  border-left: 1px solid white;
+}
+
+.ButtonSelect-Title {
+  font-weight: bold;
+}
+
+.ButtonSelect-Select {
+  margin-top: 10px;
+}

@@ -1,10 +1,10 @@
-import { daysFromWeeks, weeksFromDays } from '@utils/schedule';
+import { daysFromWeeks, weeksFromDays } from '../../utils/schedule';
 import {
   getVehiclesByWeeks,
   getVehiclesByDays,
   getWeeksByVehicles,
   getDaysByVehicles
-} from '@store/solution/selectors';
+} from '../solution/selectors';
 
 import {
   SET_FILTER,

@@ -1,0 +1,22 @@
+.FileInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.FileInput + label {
+  display: inline-block;
+  background: white;
+  color: black;
+  padding: 5px;
+  user-select: none;
+}
+
+.FileInput:focus + label,
+.FileInput + label:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}

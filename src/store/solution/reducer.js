@@ -1,8 +1,9 @@
-import { LOAD_SOLUTION, LoadStatus } from './types';
+import { SET_STATUS, LOAD_SOLUTION, LoadStatus } from './types';
 
 const initialState = {
   status: LoadStatus.EMPTY,
   hosts: [],
+  vehicles: [],
   vehiclesPerDay: [],
   vehiclesPerWeek: []
 };
@@ -12,12 +13,12 @@ export default (state = initialState, { type, payload }) => {
     case SET_STATUS:
       return { ...state, status: payload.status };
     case LOAD_SOLUTION:
-      const { hosts, routes, vehiclesPerDay, vehiclesPerWeek } = payload;
+      const { hosts, vehicles, vehiclesPerDay, vehiclesPerWeek } = payload;
 
       return {
         status: LoadStatus.DONE,
-        routes,
         hosts,
+        vehicles,
         vehiclesPerDay,
         vehiclesPerWeek
       };

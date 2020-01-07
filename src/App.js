@@ -1,19 +1,90 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { Mapbox, Navbar } from '@containers';
-
+import { Mapbox, NavBar } from './containers';
 import './App.css';
 
-class App extends Component {
+import * as SettingsActions from './store/settings/actions';
+import * as SolutionActions from './store/solution/actions';
 
+import * as SolutionSelectors from './store/solution/selectors';
+
+class App extends Component {
+  state = {
+  }
+  
   render() {
+    const {
+      settings,
+      solution,
+      loadSolution,
+
+      // Filter setters
+      setDays,
+      setVehicles,
+      setWeeks,
+    } = this.props;
+    const {
+      status: solutionStatus,
+      vehiclesPerDay,
+      vehiclesPerWeek,
+      vehicles,
+      
+      // Selectors
+      getVehiclesByDays,
+      getVehiclesByWeeks,
+      getDaysByVehicles,
+      getWeeksByVehicles
+    } = solution;
+
     return (
       <div className="App">
-        <Navbar />
+        <NavBar
+          solutionStatus={solutionStatus}
+          loadSolution={loadSolution}
+          setDays={setDays}
+          setVehicles={setVehicles}
+          setWeeks={setWeeks}
+
+          getVehiclesByDays={getVehiclesByDays}
+          getVehiclesByWeeks={getVehiclesByWeeks}
+          getDaysByVehicles={getDaysByVehicles}
+          getWeeksByVehicles={getWeeksByVehicles}
+
+          vehiclesPerDay={vehiclesPerDay}
+          vehiclesPerWeek={vehiclesPerWeek}
+          vehicles={vehicles}
+          />
         <Mapbox />
       </div>
-  );
+    );
   }
 }
 
-export default App;
+const mapStateToProps = (state, props) => {
+  const { settings, solution } = state;
+
+  return {
+    settings,
+    solution: {
+      getVehiclesByDays: days => SolutionSelectors.getVehiclesByDays(state, days),
+      getVehiclesByWeeks: weeks => SolutionSelectors.getVehiclesByWeeks(state, weeks),
+      getDaysByVehicles: vehicles => SolutionSelectors.getVehiclesByDays(state, vehicles),
+      getWeeksByVehicles: vehicles => SolutionSelectors.getVehiclesByWeeks(state, vehicles),
+      ...solution
+    }
+  };
+};
+const mapDispatchToProps = (dispatch, props) => ({
+  // Settings
+  setVehicles: vehicles => dispatch(SettingsActions.setVehicles(vehicles)),
+  setWeeks: weeks => dispatch(SettingsActions.setWeeks(weeks)),
+  setDays: days => dispatch(SettingsActions.setDays(days)),
+  // Solution
+  loadSolution: file => dispatch(SolutionActions.loadSolution(file))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

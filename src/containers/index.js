@@ -1,2 +1,2 @@
-export { default as Mapbox } from './Mapbox';
-export { default as Navbar } from './Navbar';
+export { default as Mapbox } from './MapBox';
+export { default as NavBar } from './NavBar';
