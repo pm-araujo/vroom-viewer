@@ -4,6 +4,9 @@
   background: #2a2a2a;
   color: white;
   min-height: 40px;
+  position: absolute;
+  z-index: 999;
+  width: 100%;
 }
 
 .NavBar-Button {

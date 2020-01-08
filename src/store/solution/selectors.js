@@ -1,13 +1,13 @@
 export const getVehiclesByWeeks = (state, weeks) => {
   const vehicles = state.vehiclesPerWeek.filter((_, i) => weeks.includes(i));
-  
-  return state.routes.filter(r => vehicles.includes(r.id));
+
+  return vehicles.flat();
 }
 
 export const getVehiclesByDays = (state, days) => {
   const vehicles = state.vehiclesPerDay.filter((_, i) => days.includes(i));
 
-  return state.routes.filter(r => vehicles.includes(r.id));
+  return vehicles.flat();
 }
 
 export const getDaysByVehicles = (state, vehicles) => {

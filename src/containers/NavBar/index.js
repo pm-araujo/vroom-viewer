@@ -31,7 +31,13 @@ const NavBar = (props) => {
     // Setters
     setDays,
     setVehicles,
-    setWeeks
+    setWeeks,
+
+    // Filters
+    activeFilter,
+    activeVehicles,
+    activeDays,
+    activeWeeks
   } = props;
 
   return (
@@ -40,12 +46,12 @@ const NavBar = (props) => {
         solutionStatus === 'EMPTY' && emptyContent(loadSolution) ||
         solutionStatus === 'LOADING' && loadingContent ||
         <Fragment>
-          <ButtonSelect
-            title='Weeks' data={vehiclesPerWeek} />
-          <ButtonSelect
-            title='Days' data={vehiclesPerDay} />
-          <ButtonSelect
-            title='Vehicles' data={vehicles} />
+          <ButtonSelect isActive={activeFilter === 'WEEK'}
+            title='Weeks' data={vehiclesPerWeek} onChange={setWeeks} />
+          <ButtonSelect isActive={activeFilter === 'DAY'}
+            title='Days' data={vehiclesPerDay} onChange={setDays} />
+          <ButtonSelect isActive={activeFilter === 'VEHICLE'}
+            title='Vehicles' data={vehicles} onChange={setVehicles} />
         </Fragment>
       }
     </header>

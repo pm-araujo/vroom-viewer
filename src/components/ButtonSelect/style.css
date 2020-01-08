@@ -15,7 +15,14 @@
 }
 
 .ButtonSelect-Title {
+  padding: 2px 5px;
+}
+
+.ButtonSelect-Title.active {
   font-weight: bold;
+  border: 1px dashed white;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .ButtonSelect-Select {

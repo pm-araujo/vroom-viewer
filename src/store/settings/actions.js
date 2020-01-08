@@ -22,6 +22,7 @@ const setFilter = (activeDays, activeWeeks, activeFilter, activeVehicles) => ({
 });
 
 export const setWeeks = weeks => (dispatch, getState) => {
+  debugger;
   const activeVehicles = getVehiclesByWeeks(getState().solution, weeks);
   const activeDays = daysFromWeeks(weeks);
   const activeFilter = Filters.WEEK;
@@ -30,6 +31,7 @@ export const setWeeks = weeks => (dispatch, getState) => {
 };
 
 export const setDays = days => (dispatch, getState) => {
+  debugger;
   const activeVehicles = getVehiclesByDays(getState().solution, days);
   const activeWeeks = weeksFromDays(days);
   const activeFilter = Filters.DAY;
@@ -38,6 +40,7 @@ export const setDays = days => (dispatch, getState) => {
 };
 
 export const setVehicles = vehicles => (dispatch, getState) => {
+  debugger;
   const activeFilter = Filters.VEHICLE;
   const activeDays = getDaysByVehicles(getState().solution, vehicles);
   const activeWeeks = getWeeksByVehicles(getState().solution, vehicles);

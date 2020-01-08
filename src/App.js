@@ -24,18 +24,27 @@ class App extends Component {
       setVehicles,
       setWeeks,
     } = this.props;
+
     const {
       status: solutionStatus,
       vehiclesPerDay,
       vehiclesPerWeek,
       vehicles,
-      
+
       // Selectors
       getVehiclesByDays,
       getVehiclesByWeeks,
       getDaysByVehicles,
       getWeeksByVehicles
     } = solution;
+
+    const {
+      // Filters
+      activeVehicles,
+      activeFilter,
+      activeDays,
+      activeWeeks
+    } = settings;
 
     return (
       <div className="App">
@@ -54,8 +63,13 @@ class App extends Component {
           vehiclesPerDay={vehiclesPerDay}
           vehiclesPerWeek={vehiclesPerWeek}
           vehicles={vehicles}
+
+          activeFilter={activeFilter}
+          activeDays={activeDays}
+          activeWeeks={activeWeeks}
+          activeVehicles={activeVehicles}
           />
-        <Mapbox />
+        <Mapbox activeVehicles={activeVehicles} vehicles={vehicles} />
       </div>
     );
   }
@@ -69,8 +83,8 @@ const mapStateToProps = (state, props) => {
     solution: {
       getVehiclesByDays: days => SolutionSelectors.getVehiclesByDays(state, days),
       getVehiclesByWeeks: weeks => SolutionSelectors.getVehiclesByWeeks(state, weeks),
-      getDaysByVehicles: vehicles => SolutionSelectors.getVehiclesByDays(state, vehicles),
-      getWeeksByVehicles: vehicles => SolutionSelectors.getVehiclesByWeeks(state, vehicles),
+      getDaysByVehicles: vehicles => SolutionSelectors.getDaysByVehicles(state, vehicles),
+      getWeeksByVehicles: vehicles => SolutionSelectors.getWeeksByVehicles(state, vehicles),
       ...solution
     }
   };
