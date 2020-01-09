@@ -1,4 +1,4 @@
-import { daysFromWeeks, weeksFromDays } from '../../utils/schedule';
+import { daysFromWeeks, weeksFromDays, genRandomColor } from '../../utils';
 import {
   getVehiclesByWeeks,
   getVehiclesByDays,
@@ -8,6 +8,7 @@ import {
 
 import {
   SET_FILTER,
+  SET_VEHICLE_COLORS,
   Filters
 } from './types';
 
@@ -20,6 +21,36 @@ const setFilter = (activeDays, activeWeeks, activeFilter, activeVehicles) => ({
     activeVehicles
   }
 });
+
+export const genVehicleColors = (vehiclesPerDay, vehiclesPerWeek, vehicleCount) => (dispatch, getState) => {
+  
+  const weekColors = vehiclesPerWeek.reduce((acc, _) => {
+    acc.push(genRandomColor(acc));
+    return acc;
+  }, []);
+  const dayColors = vehiclesPerDay.reduce((acc, _) => {
+    acc.push(genRandomColor(acc));
+    return acc;
+  }, []);
+  const vehicleColors = Array.from({ length: vehicleCount }, (_, i) => i).reduce((acc, v) => {
+    const week = vehiclesPerWeek.findIndex(vw => vw.includes(v));
+    const day = vehiclesPerDay.findIndex(vd => vd.includes(v));
+
+    acc.push({
+      [Filters.DAY]: dayColors[day],
+      [Filters.WEEK]: weekColors[week],
+      [Filters.VEHICLE]: genRandomColor(acc.map(({ VEHICLE: vc }) => vc ))
+    });
+
+    return acc;
+  }, []);
+  
+debugger;
+  return dispatch({
+    type: SET_VEHICLE_COLORS,
+    payload: { vehicleColors }
+  });
+}
 
 export const setWeeks = weeks => (dispatch, getState) => {
   debugger;

@@ -21,3 +21,23 @@
   opacity: 0.9;
   cursor: pointer;
 }
+
+.NavBar-Stats {
+  background: white;
+  color: black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.NavBar-StatsField {
+  white-space: nowrap;
+}
+
+.NavBar-StatsField label {
+  color: grey;
+}
+
+.NavBar-StatsField + .NavBar-StatsField {
+  margin-left: 20px;
+}

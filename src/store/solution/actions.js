@@ -1,6 +1,6 @@
 import { LOAD_SOLUTION, SET_STATUS, LoadStatus } from './types';
 
-import { setWeeks } from '../settings/actions';
+import { genVehicleColors, setWeeks } from '../settings/actions';
 
 const readJSONFile = inputFile => new Promise((resolve, reject) => {
     const tempFileReader = new FileReader();
@@ -34,7 +34,10 @@ export const loadSolution = file => (dispatch) => {
     const { routes: vehicles } = vroom.output;
     const { hosts, vehiclesPerDay, vehiclesPerWeek } = meta;
 
-    // dispatch(setVehicles(vehicles.map((v, i) => i)));
+    // Call vehicle color generation from settings actions
+    dispatch(genVehicleColors(vehiclesPerDay, vehiclesPerWeek, vehicles.length));
+
+    // dispatch(setVehicles(vehicles.map((_, i) => i)));
     dispatch(setWeeks(vehiclesPerWeek.map((_, i) => i)))
 
     return dispatch({

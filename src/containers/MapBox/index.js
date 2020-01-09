@@ -26,6 +26,18 @@ const dataLayer = {
   }
 };
 
+
+const dataLayerBorder = {
+  id: 'dataBorder',
+  beforeId: 'data',
+  type: 'line',
+  source: 'routes',
+  paint: {
+    'line-width': 5,
+    'line-color': '#000000'
+  }
+};
+
 export default class Mapbox extends Component {
   state = {
     activeVehicles: [],
@@ -38,7 +50,7 @@ export default class Mapbox extends Component {
         'raster-tiles': {
             type: 'raster',
             tiles: [
-              'http://c.tile.osm.org/{z}/{x}/{y}.png'
+              'http://tile.osm.org/{z}/{x}/{y}.png'
             ],
             tileSize: 256
         }
@@ -60,7 +72,14 @@ export default class Mapbox extends Component {
     }
   }
 
-  static getDerivedStateFromProps({ activeVehicles: cur, vehicles: vehicleData }, { activeVehicles: prev }) {
+  static getDerivedStateFromProps(nextProps, { activeVehicles: prev }) {
+    const {
+      activeVehicles: cur,
+      activeFilter,
+      vehicleColors,
+      vehicles: vehicleData
+    } = nextProps;
+
     if (cur && cur.length > 0 && vehicleData && vehicleData.length > 0 &&
       !arrayEquals(cur, prev) ) {
         const vehicles = vehicleData.filter((_, i) => cur.includes(i));
@@ -74,7 +93,7 @@ export default class Mapbox extends Component {
             geometry: Polyline.toGeoJSON(v.geometry),
             properties: {
               vehicle: v.vehicle,
-              color: genRandomColor(100, 50)
+              color: vehicleColors[v.vehicle][activeFilter]
             }
           }))
         };
@@ -103,6 +122,7 @@ export default class Mapbox extends Component {
           {...viewport}>
             <Source id='routes' type='geojson' data={routes}>
               <Layer {...dataLayer} />
+              <Layer {...dataLayerBorder} />
             </Source>
         </MapGL>
       </div>

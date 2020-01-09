@@ -43,7 +43,8 @@ class App extends Component {
       activeVehicles,
       activeFilter,
       activeDays,
-      activeWeeks
+      activeWeeks,
+      vehicleColors
     } = settings;
 
     return (
@@ -68,8 +69,13 @@ class App extends Component {
           activeDays={activeDays}
           activeWeeks={activeWeeks}
           activeVehicles={activeVehicles}
+          vehicleColors={vehicleColors}
           />
-        <Mapbox activeVehicles={activeVehicles} vehicles={vehicles} />
+        <Mapbox
+          activeFilter={activeFilter}
+          activeVehicles={activeVehicles}
+          vehicles={vehicles}
+          vehicleColors={vehicleColors} />
       </div>
     );
   }

@@ -2,7 +2,7 @@ const N_WORKDAYS = 5;
 const N_WEEKS = 4;
 
 /**
- * Resolves array of day indicess for given week indices array
+ * Resolves array of day indices for given week indices array
  * 
  * @param {Number[]} weeks
  *    [0, 2] = first week, third week days => [0..4, 10..14]
