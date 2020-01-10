@@ -47,6 +47,7 @@ export default class Mapbox extends Component {
     activeVehicles: [],
     routes: null,
     routesInactive: null,
+    uniqueHosts: null,
 
     // Map Config
     hoveredFeature: null,

@@ -34,6 +34,7 @@ class App extends Component {
       vehiclesPerDay,
       vehiclesPerWeek,
       vehicles,
+      hosts,
 
       // Selectors
       getVehiclesByDays,
@@ -58,6 +59,7 @@ class App extends Component {
         {
           activeFeature !== null ?
             <FeatureSideBar
+            hosts={hosts}
             activeFeature={activeFeature}
             vehicles={vehicles}
             setActiveFeature={setActiveFeature} />
@@ -94,6 +96,7 @@ class App extends Component {
             activeVehicles={activeVehicles}
             showAllRoutes={showAllRoutes}
             vehicles={vehicles}
+            hosts={hosts}
             vehicleColors={vehicleColors}
             vehiclesPerDay={vehiclesPerDay}
             vehiclesPerWeek={vehiclesPerWeek}

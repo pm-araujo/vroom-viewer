@@ -32,8 +32,6 @@ export default class FeatureSideBar extends Component {
       setActiveFeature
     } = this.props;
 
-
-
     return (
       <Menu
         customBurgerIcon={false}
@@ -48,16 +46,56 @@ export default class FeatureSideBar extends Component {
           <span className='SideBar-Title'>{activeFeature.type}</span>
           {activeFeature.id + 1}
         </h1>
+        <div className='SideBar-Stats'>
+          {
+            activeFeature.type === 'vehicle' ?
+              <Fragment>
+                <span>
+                  Hosts: {vehicles[activeFeature.id].steps.length - 2} | 
+                </span>
+                <span>
+                  Capacity: {vehicles[activeFeature.id].pickup[0]} / 21
+                </span>
+              </Fragment>
+              : null
+          }
+        </div>
         <ul>
           {
             activeFeature.type === 'vehicle' ?
-            vehicles[activeFeature.id].steps.map((s, i) => (
-                <li key={i}>
-                  {s.type !== 'job' ? `${s.type} - ` : ''} {s.job}
-                  <br />
-                  <small>{resolveTime(s.arrival)}</small>
+            vehicles[activeFeature.id].steps.map((s, i) => {
+              const {
+                host,
+                pickup,
+                perMonth,
+                perWeek,
+                nContainers,
+                nPickups
+              } = s.type === 'job' && hosts[s.job];
+debugger;
+              return (
+                <li className='FeatureVehicle' key={i}>
+                  {
+                    s.type !== 'job' ?
+                      <Fragment>
+                        <div className='FeatureVehicle-Title'>{s.type}</div>
+                        <small><b>Arrival: </b>{resolveTime(s.arrival)}</small>
+                      </Fragment> :
+                      <Fragment>
+                        <div className='FeatureVehicle-Title'>
+                          {host}
+                          <small>{perMonth}{perMonth === 7 ? `.${perWeek}` : null }</small>
+                        </div>
+                        <small><b># Containers: </b>{nContainers}</small>
+                        <br />
+                        <small><b>Pickup Nr: </b>{pickup + 1} / {nPickups}</small>
+                        <br />
+                        <small><b>Arrival: </b>{resolveTime(s.arrival)}</small>
+                      </Fragment>
+                  }
                 </li>
-            ))
+              );
+            })
             : activeFeature.type === 'host' ?
               <Fragment>
               </Fragment>
