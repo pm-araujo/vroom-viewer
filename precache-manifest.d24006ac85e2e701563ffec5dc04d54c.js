@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2bba84b2734779967b813e2892e73161",
+    "revision": "c77439e78d5168c6864d7159d183732f",
     "url": "/vroom-viewer/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vroom-viewer/static/css/2.7efaf445.chunk.css"
   },
   {
-    "revision": "11b46a1b0ad90fba7def",
+    "revision": "ad9d2ef49d83404115cf",
     "url": "/vroom-viewer/static/css/main.cbf8242d.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vroom-viewer/static/js/2.87a222c2.chunk.js.LICENSE"
   },
   {
-    "revision": "11b46a1b0ad90fba7def",
-    "url": "/vroom-viewer/static/js/main.c4b1e1fa.chunk.js"
+    "revision": "ad9d2ef49d83404115cf",
+    "url": "/vroom-viewer/static/js/main.1a236391.chunk.js"
   },
   {
     "revision": "133b7e247f459c9b9fd4",
