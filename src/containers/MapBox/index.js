@@ -57,7 +57,7 @@ export default class Mapbox extends Component {
         'raster-tiles': {
             type: 'raster',
             tiles: [
-              'http://tile.osm.org/{z}/{x}/{y}.png'
+              'https://tile.osm.org/{z}/{x}/{y}.png'
             ],
             tileSize: 256
         }
@@ -196,7 +196,7 @@ export default class Mapbox extends Component {
       viewport
     } = this.state;
 
-    const { showAllRoutes } = this.props
+    const { hosts, showAllRoutes } = this.props
 
     return (
       <div id="map">
