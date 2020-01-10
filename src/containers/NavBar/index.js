@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import { ButtonSelect, FileInput } from '../../components';
 
+import { resolveTime } from '../../utils';
+
 import './style.css';
 
 const loadingContent = (
@@ -30,8 +32,8 @@ const capacityCalc = (vehicles, active) => {
 
 const timeCalc = (vehicles, active, isEnd = false) => {
   const activeVehicles = vehicles.filter(v => active.includes(v.vehicle));
-  const earliest = activeVehicles[0];
-  const latest = activeVehicles[activeVehicles.length - 1]
+  const earliest = activeVehicles.sort(({steps: stepsA}, {steps: stepsB}) => stepsA[0].arrival - stepsB[0].arrival)[0];
+  const latest = activeVehicles.sort(({steps: stepsA}, {steps: stepsB}) => stepsB[stepsB.length - 1].arrival - stepsA[stepsA.length - 1].arrival)[0];
 
   if (!earliest || !latest) {
     return 0;
@@ -78,29 +80,45 @@ const NavBar = (props) => {
     setDays,
     setVehicles,
     setWeeks,
+    setShowRoutes,
 
     // Filters
     activeFilter,
     activeVehicles,
     activeDays,
     activeWeeks,
+    showAllRoutes,
     vehicleColors
   } = props;
 
   return (
     <header className='NavBar'>
       {
-        solutionStatus === 'EMPTY' && emptyContent(loadSolution) ||
-        solutionStatus === 'LOADING' && loadingContent ||
+        (solutionStatus === 'EMPTY' && emptyContent(loadSolution)) ||
+        (solutionStatus === 'LOADING' && loadingContent) ||
         <Fragment>
-          <ButtonSelect title='Weeks' isActive={activeFilter === 'WEEK'}
-            data={vehiclesPerWeek} colors={vehicleColors.map(({ WEEK }) => WEEK)} onChange={setWeeks} />
+          <div className='NavBar-Controls'>
+            <ButtonSelect title='Weeks' isActive={activeFilter === 'WEEK'}
+              data={vehiclesPerWeek} colors={vehicleColors.map(({ WEEK }) => WEEK)} onChange={setWeeks} />
 
-          <ButtonSelect title='Days' isActive={activeFilter === 'DAY'}
-            data={vehiclesPerDay} colors={vehicleColors.map(({ DAY }) => DAY)} onChange={setDays} />
+            <ButtonSelect title='Days' isActive={activeFilter === 'DAY'}
+              data={vehiclesPerDay} colors={vehicleColors.map(({ DAY }) => DAY)} onChange={setDays} />
 
-          <ButtonSelect title='Vehicles' isActive={activeFilter === 'VEHICLE'}
-            data={vehicles} colors={vehicleColors.map(({ VEHICLE }) => VEHICLE)} onChange={setVehicles} />
+            <ButtonSelect title='Vehicles' isActive={activeFilter === 'VEHICLE'}
+              data={vehicles} colors={vehicleColors.map(({ VEHICLE }) => VEHICLE)} onChange={setVehicles} />
+
+            <div>
+              <label>
+              <input
+                name='showAllRoutes'
+                type='checkbox'
+                checked={showAllRoutes}
+                onChange={({ target }) => setShowRoutes(target.checked)}
+                />
+                Show inactive routes
+              </label>
+            </div>
+          </div>
             
           <div className='NavBar-Stats'>
             <span className='NavBar-StatsField'>
@@ -121,11 +139,11 @@ const NavBar = (props) => {
             </span>
             <span className='NavBar-StatsField'>
               <label>Start:</label>
-              <span>{timeCalc(vehicles, activeVehicles)}</span>
+              <span>{resolveTime(timeCalc(vehicles, activeVehicles))}</span>
             </span>
             <span className='NavBar-StatsField'>
               <label>End:</label>
-              <span>{timeCalc(vehicles, activeVehicles, true)}</span>
+              <span>{resolveTime(timeCalc(vehicles, activeVehicles, true))}</span>
             </span>
             <span className='NavBar-StatsField'>
               <label>Duration:</label>

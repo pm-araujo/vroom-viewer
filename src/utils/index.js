@@ -1,2 +1,2 @@
-export { daysFromWeeks, weeksFromDays } from './schedule';
+export { daysFromWeeks, weeksFromDays, resolveTime } from './schedule';
 export { genRandomColor } from './misc';

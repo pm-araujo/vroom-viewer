@@ -22,10 +22,6 @@ export function genRandomColor(colors) {
   };
 
   const parsedColors = colors.map(c => {
-
-    if (typeof c.split !== 'function') {
-      debugger;
-    }
     const [start, middle, end] = c.split(',');
     
     return {
@@ -41,8 +37,8 @@ export function genRandomColor(colors) {
     cHue = Math.floor(Math.random() * (MAX_HUE - MIN_HUE) + MIN_HUE);
     cSat = Math.floor(Math.random() * (MAX_SAT - MIN_SAT) + MIN_SAT);
     cLit = Math.floor(Math.random() * (MAX_LIT - MIN_LIT) + MIN_LIT);
-debugger;
+
   } while(!parsedColors.every(c => isDistinct(c, { cHue, cSat, cLit })));
-debugger;
+
   return `hsl(${cHue}, ${cSat}%, ${cLit}%)`;
 }

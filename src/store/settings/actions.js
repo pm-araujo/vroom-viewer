@@ -7,9 +7,11 @@ import {
 } from '../solution/selectors';
 
 import {
+  SET_ACTIVE_FEATURE,
   SET_FILTER,
   SET_VEHICLE_COLORS,
-  Filters
+  Filters,
+  SET_SHOW_ROUTES
 } from './types';
 
 const setFilter = (activeDays, activeWeeks, activeFilter, activeVehicles) => ({
@@ -22,7 +24,29 @@ const setFilter = (activeDays, activeWeeks, activeFilter, activeVehicles) => ({
   }
 });
 
-export const genVehicleColors = (vehiclesPerDay, vehiclesPerWeek, vehicleCount) => (dispatch, getState) => {
+export const setShowRoutes = showAllRoutes => (dispatch) => {
+  return dispatch({
+    type: SET_SHOW_ROUTES,
+    payload: { showAllRoutes }
+  });
+}
+
+export const setActiveFeature = feature => (dispatch) => {
+  if (!feature) {
+    return dispatch({
+      type: SET_ACTIVE_FEATURE,
+      payload: null
+    });
+  }
+  const { type, id } = feature;
+
+  return dispatch({
+    type: SET_ACTIVE_FEATURE,
+    payload: { type, id }
+  });
+}
+
+export const genVehicleColors = (vehiclesPerDay, vehiclesPerWeek, vehicleCount) => (dispatch) => {
   
   const weekColors = vehiclesPerWeek.reduce((acc, _) => {
     acc.push(genRandomColor(acc));
@@ -45,7 +69,6 @@ export const genVehicleColors = (vehiclesPerDay, vehiclesPerWeek, vehicleCount) 
     return acc;
   }, []);
   
-debugger;
   return dispatch({
     type: SET_VEHICLE_COLORS,
     payload: { vehicleColors }
@@ -53,7 +76,6 @@ debugger;
 }
 
 export const setWeeks = weeks => (dispatch, getState) => {
-  debugger;
   const activeVehicles = getVehiclesByWeeks(getState().solution, weeks);
   const activeDays = daysFromWeeks(weeks);
   const activeFilter = Filters.WEEK;
@@ -62,7 +84,6 @@ export const setWeeks = weeks => (dispatch, getState) => {
 };
 
 export const setDays = days => (dispatch, getState) => {
-  debugger;
   const activeVehicles = getVehiclesByDays(getState().solution, days);
   const activeWeeks = weeksFromDays(days);
   const activeFilter = Filters.DAY;
@@ -71,7 +92,6 @@ export const setDays = days => (dispatch, getState) => {
 };
 
 export const setVehicles = vehicles => (dispatch, getState) => {
-  debugger;
   const activeFilter = Filters.VEHICLE;
   const activeDays = getDaysByVehicles(getState().solution, vehicles);
   const activeWeeks = getWeeksByVehicles(getState().solution, vehicles);

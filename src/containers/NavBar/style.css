@@ -1,5 +1,4 @@
 .NavBar {
-  display: flex;
   margin: 0;
   background: #2a2a2a;
   color: white;
@@ -9,17 +8,9 @@
   width: 100%;
 }
 
-.NavBar-Button {
-  background: white;
-  outline: 0;
-  border: 0;
-  margin: 0;
-  padding: 10px;
-}
-
-.NavBar-Button:hover {
-  opacity: 0.9;
-  cursor: pointer;
+.NavBar-Controls {
+  padding-top: 5px;
+  display: flex;
 }
 
 .NavBar-Stats {

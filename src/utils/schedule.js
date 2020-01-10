@@ -1,5 +1,16 @@
+import moment from 'moment';
+
 const N_WORKDAYS = 5;
 const N_WEEKS = 4;
+
+const NamedWeeks = Array.from({ length: N_WEEKS}, (_, i) => `Week ${i + 1}`);
+const NamedDays = [
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri'
+];
 
 /**
  * Resolves array of day indices for given week indices array
@@ -21,4 +32,32 @@ export function daysFromWeeks(weeks) {
  */
 export function weeksFromDays(days) {
   return Array.from(new Set(days.map(d => Math.floor(d / N_WORKDAYS))));
+}
+
+/**
+ * Resolve 
+ * @param {*} time 
+ */
+export function resolveTime(time) {
+  let hours = time / 60 / 60;
+  let days = hours / 24;
+  let weeks = days / N_WORKDAYS;
+
+  if (days > N_WORKDAYS) {
+
+  }
+
+  if (days > 1) {
+    hours = hours % 24;
+  }
+
+  if (weeks > 1) {
+    days = days % N_WORKDAYS;
+  }
+
+  const resolvedWeek = NamedWeeks[Math.floor(weeks)];
+  const resolvedDay = NamedDays[Math.floor(days)];
+  const resolvedHour = `${moment.duration(hours, 'hours').hours()}h${moment.duration(hours, 'hours').minutes()}m`;
+  
+  return `${resolvedWeek}, ${resolvedDay} - ${resolvedHour}`;
 }
