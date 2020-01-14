@@ -3,6 +3,7 @@ import Select from 'react-select';
 import chroma from 'chroma-js';
 
 import './style.css';
+import { getWeeksByVehicles } from '../../store/solution/selectors';
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: 'white' }),
@@ -59,10 +60,19 @@ const ButtonSelect = (props) => {
     colors,
     isActive,
     title,
-    onChange: handleChange
-  } = props;
+    onChange: handleChange,
 
-  const formatData = data.map((v, i) => ({ value: i, label: i + 1, color: Array.isArray(v) ? colors.find((_, i2) => v.includes(i2)) : colors[i] }));
+    getDaysByVehicles,
+    getWeeksByVehicles
+  } = props;
+debugger;
+  const formatData = data.map((v, i) => ({
+    value: i,
+    color: Array.isArray(v) ? colors.find((_, i2) => v.includes(i2)) : colors[i],
+    label: `${i+1} 
+      ${getDaysByVehicles ? `Day ${getDaysByVehicles([v.vehicle])[0] + 1}` : ''}
+      ${getWeeksByVehicles ? `Week ${getWeeksByVehicles([v.vehicle])[0] + 1}` : ''}`
+  }));
 
   return (
     <div className='ButtonSelect'>

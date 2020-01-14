@@ -73,8 +73,8 @@ const NavBar = (props) => {
     // Selectors
     vehiclesByDays,
     vehiclesByWeeks,
-    daysByVehicles,
-    weeksByVehicles,
+    getDaysByVehicles,
+    getWeeksByVehicles,
 
     // Setters
     setDays,
@@ -105,7 +105,8 @@ const NavBar = (props) => {
               data={vehiclesPerDay} colors={vehicleColors.map(({ DAY }) => DAY)} onChange={setDays} />
 
             <ButtonSelect title='Vehicles' isActive={activeFilter === 'VEHICLE'}
-              data={vehicles} colors={vehicleColors.map(({ VEHICLE }) => VEHICLE)} onChange={setVehicles} />
+              data={vehicles} colors={vehicleColors.map(({ VEHICLE }) => VEHICLE)} onChange={setVehicles}
+              getWeeksByVehicles={getWeeksByVehicles} getDaysByVehicles={getDaysByVehicles} />
 
             <div>
               <label>

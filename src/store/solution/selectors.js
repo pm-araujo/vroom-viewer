@@ -11,13 +11,13 @@ export const getVehiclesByDays = (state, days) => {
 }
 
 export const getDaysByVehicles = (state, vehicles) => {
-  const days = new Set(vehicles.map(v => state.vehiclesPerDay.find(vp => vp.includes(v))));
+  const days = new Set(vehicles.map(v => Number.parseInt(state.vehiclesPerDay.findIndex(vp => vp.includes(v)))));
 
   return Array.from(days);
 };
 
 export const getWeeksByVehicles = (state, vehicles) => {
-  const weeks = new Set(vehicles.map(v => state.vehiclesPerWeek.find(vw => vw.includes(v))));
+  const weeks = new Set(vehicles.map(v => state.vehiclesPerWeek.findIndex(vw => vw.includes(v))));
 
   return Array.from(weeks);
 };

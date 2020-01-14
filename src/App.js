@@ -116,8 +116,8 @@ const mapStateToProps = (state, props) => {
     solution: {
       getVehiclesByDays: days => SolutionSelectors.getVehiclesByDays(state, days),
       getVehiclesByWeeks: weeks => SolutionSelectors.getVehiclesByWeeks(state, weeks),
-      getDaysByVehicles: vehicles => SolutionSelectors.getDaysByVehicles(state, vehicles),
-      getWeeksByVehicles: vehicles => SolutionSelectors.getWeeksByVehicles(state, vehicles),
+      getDaysByVehicles: vehicles => SolutionSelectors.getDaysByVehicles(solution, vehicles),
+      getWeeksByVehicles: vehicles => SolutionSelectors.getWeeksByVehicles(solution, vehicles),
       ...solution
     }
   };
