@@ -2,8 +2,9 @@ import React from 'react';
 import Select from 'react-select';
 import chroma from 'chroma-js';
 
+import { resolveWeekDay } from '../../utils';
+
 import './style.css';
-import { getWeeksByVehicles } from '../../store/solution/selectors';
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: 'white' }),
@@ -70,8 +71,8 @@ debugger;
     value: i,
     color: Array.isArray(v) ? colors.find((_, i2) => v.includes(i2)) : colors[i],
     label: `${i+1} 
-      ${getDaysByVehicles ? `Day ${getDaysByVehicles([v.vehicle])[0] + 1}` : ''}
-      ${getWeeksByVehicles ? `Week ${getWeeksByVehicles([v.vehicle])[0] + 1}` : ''}`
+      ${getDaysByVehicles ? `${resolveWeekDay(getDaysByVehicles([v.vehicle])[0])}` : ''}
+      ${getWeeksByVehicles ? `W${getWeeksByVehicles([v.vehicle])[0] + 1}` : ''}`
   }));
 
   return (

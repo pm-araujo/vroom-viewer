@@ -61,3 +61,19 @@ export function resolveTime(time) {
   
   return `${resolvedWeek}, ${resolvedDay} - ${resolvedHour}`;
 }
+
+export function resolveWeekDay(day, fromIndex=true) {
+  if (fromIndex) {
+    return NamedDays[Math.floor(day % N_WORKDAYS)];
+  }
+
+  const hours = day / 60 / 60;
+  const days = hours / 24;
+  const weeks = days / N_WORKDAYS;
+
+  if (weeks > 1) {
+    days = days % N_WORKDAYS;
+  }
+
+  return NamedDays[Math.floor(days)];
+}
