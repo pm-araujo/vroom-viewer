@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import MapGL, { Marker, Layer, Source } from 'react-map-gl';
 
 import Polyline from '@mapbox/polyline';
+
+import { MapMarkers } from '../../components';
 
 import './style.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -52,7 +54,7 @@ const markerIcon = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10
   c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
   C20.1,15.8,20.2,15.8,20.2,15.7z`;
 
-export default class Mapbox extends Component {
+export default class Mapbox extends PureComponent {
   state = {
     activeVehicles: [],
     routes: null,
@@ -117,7 +119,7 @@ export default class Mapbox extends Component {
 
           if (cur.includes(i)) {
             vehiclesActive.push(v);
-            steps.forEach(({ job }) => job !== undefined && hostsActive.push({ job, vehicle }));
+            steps.forEach(({ job }, order) => job !== undefined && hostsActive.push({ job, vehicle, order }));
           } else {
             vehiclesInactive.push(v);
             steps.forEach(({ job }) => job !== undefined && hostsInactive.push({ job, vehicle }));
@@ -152,16 +154,16 @@ export default class Mapbox extends Component {
         };
 
         const resolvedActiveHosts = hostsActive.reduce((acc, h) => {
-          const { job, vehicle } = h;
+          const { job, order, vehicle } = h;
           const resolved = hosts[job];
 
           if (acc.find(({ host }) => host === resolved.host) === undefined) {
-            acc.push({ ...resolved, color: vehicleColors[vehicle][activeFilter] });
+            acc.push({ ...resolved, color: vehicleColors[vehicle][activeFilter], order });
           }
           return acc;
         }, []);
 
-        const resolvedInactiveHosts = hostsActive.reduce((acc, h) => {
+        const resolvedInactiveHosts = hostsInactive.reduce((acc, h) => {
           const { job } = h;
           const resolved = hosts[job];
 
@@ -194,7 +196,9 @@ export default class Mapbox extends Component {
 
     const hoveredFeature = features && features.find(f => f.layer.id === 'data' || f.layer.id === 'dataInactive');
 
-    this.setState({ hoveredFeature, x: offsetX, y: offsetY });
+    this.setState({
+      hoveredFeature: !hoveredFeature ? hoveredFeature : { ...hoveredFeature, count: features.length },
+      x: offsetX, y: offsetY });
   }
 
   _onClick = ev => {
@@ -226,7 +230,6 @@ export default class Mapbox extends Component {
     }
 
     if (hoveredFeature.type === 'host') {
-      debugger;
       const { host, perWeek, perMonth, nContainers, pickup } = hoveredFeature.host;
       return (
         <div className="tooltip" style={{left: x, top: y}}>
@@ -234,25 +237,15 @@ export default class Mapbox extends Component {
         </div>
       );
     } else {
-      debugger;
       return (
         <div className="tooltip" style={{left: x, top: y}}>
           <div>Vehicle: {hoveredFeature.properties.vehicle + 1}</div>
           <div>Day: {hoveredFeature.properties.day + 1}</div>
           <div>Week: {hoveredFeature.properties.week + 1}</div>
+          <div>Count: {hoveredFeature.count}</div>
         </div>
       );
     }
-
-    return (
-      hoveredFeature && (
-        <div className="tooltip" style={{left: x, top: y}}>
-          <div>Vehicle: {hoveredFeature.properties.vehicle + 1}</div>
-          <div>Day: {hoveredFeature.properties.day + 1}</div>
-          <div>Week: {hoveredFeature.properties.week + 1}</div>
-        </div>
-      )
-    );
   }
 
   render() {
@@ -297,72 +290,15 @@ export default class Mapbox extends Component {
             }
             {
               depot ?
-                <Marker latitude={depot.latitude} longitude={depot.longitude}>
-                  <svg
-                    height={MARKER_SIZE}
-                    viewBox={`0 0 ${MARKER_SIZE + 4} ${MARKER_SIZE + 4}`}
-                    style={{
-                      cursor: 'pointer',
-                      fill: 'red',
-                      stroke: 'none',
-                      transform: `translate(${-MARKER_SIZE / 2}px,${-MARKER_SIZE}px)`
-                    }}>
-                    <path
-                      stroke='black'
-                      strokeLinejoin='round'
-                      strokeWidth={1}
-                      d={MARKER_ICON} />
-                    <text x='50%' y='50%'
-                      fontWeight='bold'
-                      fontSize={10}
-                      fill='white'>
-                      D
-                    </text>
-                  </svg>
-                </Marker>
+                <MapMarkers data={[depot]} type='depot'/>
                 : null
             }
-            <Fragment>
-            {
-              hosts.map((h, i) => {
-                const { color, host, latitude, longitude } = h;
-
-                return (
-                  <Marker
-                    key={host}
-                    longitude={longitude}
-                    latitude={latitude}>
-                    <svg
-                      onClick={() => setActiveFeature({ type: 'host', id: host })}
-                      onMouseEnter={ev => this._onHover({
-                        srcEvent: { offsetX: ev.screenX, offsetY: ev.screenY },
-                        features: [{ type: 'host', host: h, layer: { id: 'data' } }]
-                      })}
-                      height={MARKER_SIZE}
-                      viewBox={`0 0 ${MARKER_SIZE + 4} ${MARKER_SIZE + 4}`}
-                      style={{
-                        cursor: 'pointer',
-                        fill: color,
-                        stroke: 'none',
-                        transform: `translate(${-MARKER_SIZE / 2}px,${-MARKER_SIZE}px)`
-                      }}>
-                      <path
-                        stroke='black'
-                        strokeLinejoin='round'
-                        strokeWidth={1}
-                        d={MARKER_ICON} />
-                      <text x='50%' y='50%'
-                        fontWeight='bold'
-                        fontSize={10}
-                        fill='black'>
-                        {i}
-                      </text>
-                    </svg>
-                  </Marker>
-                );
-              })
+                        {
+              showAllRoutes ?
+                <MapMarkers data={hostsInactive} type='inactive' clickHandler={setActiveFeature} />
+                : null
             }
-            </Fragment>
+            <MapMarkers data={hosts} type='host' clickHandler={setActiveFeature} />
             {this._renderTooltip()}
         </MapGL>
       </div>
