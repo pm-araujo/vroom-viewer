@@ -66,7 +66,7 @@ const ButtonSelect = (props) => {
     getDaysByVehicles,
     getWeeksByVehicles
   } = props;
-debugger;
+
   const formatData = data.map((v, i) => ({
     value: i,
     color: Array.isArray(v) ? colors.find((_, i2) => v.includes(i2)) : colors[i],

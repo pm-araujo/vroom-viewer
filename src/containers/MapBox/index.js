@@ -194,11 +194,12 @@ export default class Mapbox extends PureComponent {
       srcEvent: { offsetX, offsetY }
     } = ev;
 
-    const hoveredFeature = features && features.find(f => f.layer.id === 'data' || f.layer.id === 'dataInactive');
+    const hoveredFeatures = features && features.filter(f => f.layer.id === 'data' || f.layer.id === 'dataInactive');
 
     this.setState({
-      hoveredFeature: !hoveredFeature ? hoveredFeature : { ...hoveredFeature, count: features.length },
-      x: offsetX, y: offsetY });
+      hoveredFeatures,
+      x: offsetX, y: offsetY
+    });
   }
 
   _onClick = ev => {
@@ -223,29 +224,23 @@ export default class Mapbox extends PureComponent {
   }
   
   _renderTooltip() {
-    const {hoveredFeature, x, y} = this.state;
+    const {hoveredFeatures, x, y} = this.state;
 
-    if (!hoveredFeature) {
+    if (!hoveredFeatures || !hoveredFeatures.length) {
       return null;
     }
 
-    if (hoveredFeature.type === 'host') {
-      const { host, perWeek, perMonth, nContainers, pickup } = hoveredFeature.host;
-      return (
-        <div className="tooltip" style={{left: x, top: y}}>
-          <div>Host: {host}</div>
+    return (
+      <div className='Tooltip' style={{left: x, top: y}}>
+        {
+          hoveredFeatures.length > 1 && <div>Count: {hoveredFeatures.length}</div>
+        }
+        <div>Vehicles: </div>
+        <div className='Tooltip-VehicleHolder'>
+          { hoveredFeatures.map((f, i) => <span key={i}>{f.properties.vehicle + 1}</span>) }
         </div>
-      );
-    } else {
-      return (
-        <div className="tooltip" style={{left: x, top: y}}>
-          <div>Vehicle: {hoveredFeature.properties.vehicle + 1}</div>
-          <div>Day: {hoveredFeature.properties.day + 1}</div>
-          <div>Week: {hoveredFeature.properties.week + 1}</div>
-          <div>Count: {hoveredFeature.count}</div>
-        </div>
-      );
-    }
+      </div>
+    );
   }
 
   render() {
@@ -298,7 +293,7 @@ export default class Mapbox extends PureComponent {
                 <MapMarkers data={hostsInactive} type='inactive' clickHandler={setActiveFeature} />
                 : null
             }
-            <MapMarkers data={hosts} type='host' clickHandler={setActiveFeature} />
+            <MapMarkers data={hosts} type='host' clickHandler={setActiveFeature}/>
             {this._renderTooltip()}
         </MapGL>
       </div>
