@@ -60,7 +60,7 @@ export default class FeatureSideBar extends Component {
 
       return acc;
     }, []);
-
+debugger;
     return {
       ...hostIndexes[0],
       routes
@@ -89,7 +89,7 @@ export default class FeatureSideBar extends Component {
           : this._resolveHost(features[active].id)
       )
     });
-
+debugger;
     return (
       <Menu
         customBurgerIcon={false}
@@ -158,7 +158,7 @@ export default class FeatureSideBar extends Component {
                       nContainers,
                       nPickups
                     } = s.type === 'job' && hosts[s.job];
-
+debugger;
                     return (
                       <li key={i} className='Feature'>
                         {
@@ -183,8 +183,7 @@ export default class FeatureSideBar extends Component {
                       </li>
                     );
                   })
-                  : currentFeature.type === 'host' ?
-                    currentFeature.routes.map((r, i) => {
+                  : currentFeature.routes.map((r, i) => {
                       const { vehicle, time } = r;
 
                       return (
@@ -197,7 +196,6 @@ export default class FeatureSideBar extends Component {
                         </li>
                       );
                     })
-                  : null
                 }
               </ul>
             </Fragment>
