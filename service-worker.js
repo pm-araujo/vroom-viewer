@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vroom-viewer/precache-manifest.e00d872e78f3fc2eac9d5631f29651cf.js"
+  "/vroom-viewer/precache-manifest.e33d87da3c15e7418aacdbe572aec120.js"
 );
 
 self.addEventListener('message', (event) => {
