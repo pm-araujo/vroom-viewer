@@ -15,7 +15,7 @@ export default class FeatureSideBar extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { activeFeatures } = nextProps;
     const { features } = prevState;
-    debugger;
+
     const isDistinct = (f1, f2) => (f1 && f2) && f1.some(f => f2.find(p => (p.id === f.id) && (p.type === f.type)) === undefined);
 
     if (activeFeatures && activeFeatures.length === 0) {
@@ -60,7 +60,7 @@ export default class FeatureSideBar extends Component {
 
       return acc;
     }, []);
-debugger;
+
     return {
       ...hostIndexes[0],
       routes
@@ -89,7 +89,7 @@ debugger;
           : this._resolveHost(features[active].id)
       )
     });
-debugger;
+
     return (
       <Menu
         customBurgerIcon={false}
@@ -158,7 +158,7 @@ debugger;
                       nContainers,
                       nPickups
                     } = s.type === 'job' && hosts[s.job];
-debugger;
+
                     return (
                       <li key={i} className='Feature'>
                         {
