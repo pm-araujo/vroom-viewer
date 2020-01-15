@@ -34,6 +34,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Individual item */
 .bm-item {
   display: inline-block;
+  outline: 0;
 }
 
 /* Styling of overlay */
@@ -49,25 +50,40 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .SideBar-Stats {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.SideBar-Stats > span {
+  margin-bottom: 10px;
 }
 
 small {
   margin-left: 10px;
 }
 
-.FeatureVehicle + .FeatureVehicle {
+.FeatureLink {
+  color: white;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.FeatureLink:hover, .FeatureLink.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.Feature + .Feature {
   margin-top: 20px;
   border-top: 1px solid grey;
   padding-top: 20px;
 }
 
-.FeatureVehicle-Title {
+.Feature-Title {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
 }
 
-.FeatureVehicle-Title > small {
+.Feature-Title > small {
   font-style: italic;
   text-align: right;
 }

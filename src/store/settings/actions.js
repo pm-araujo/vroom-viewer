@@ -7,7 +7,7 @@ import {
 } from '../solution/selectors';
 
 import {
-  SET_ACTIVE_FEATURE,
+  SET_ACTIVE_FEATURES,
   SET_FILTER,
   SET_VEHICLE_COLORS,
   Filters,
@@ -31,18 +31,10 @@ export const setShowRoutes = showAllRoutes => (dispatch) => {
   });
 }
 
-export const setActiveFeature = feature => (dispatch) => {
-  if (!feature) {
-    return dispatch({
-      type: SET_ACTIVE_FEATURE,
-      payload: null
-    });
-  }
-  const { type, id } = feature;
-
+export const setActiveFeatures = features => (dispatch) => {
   return dispatch({
-    type: SET_ACTIVE_FEATURE,
-    payload: { type, id }
+    type: SET_ACTIVE_FEATURES,
+    payload: features
   });
 }
 

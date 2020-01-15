@@ -42,7 +42,7 @@ const MapMarkers = (props) => {
         <svg style={{...markerStyles}}
           height={MARKER_SIZE}
           viewBox={`0 0 ${MARKER_SIZE + 4} ${MARKER_SIZE + 4}`}
-          onClick={type !== 'depot' ? (() => clickHandler({ type, id: host })) : null}>
+          onClick={type !== 'depot' ? (() => clickHandler([{ type, id: host }])) : null}>
 
           <path d={MARKER_ICON} />
           <text x='50%' y='50%' stroke={textColor}>

@@ -26,7 +26,7 @@ class App extends Component {
       setWeeks,
       setShowRoutes,
 
-      setActiveFeature
+      setActiveFeatures
     } = this.props;
 
     const {
@@ -45,7 +45,7 @@ class App extends Component {
 
     const {
       // Filters
-      activeFeature,
+      activeFeatures,
       activeVehicles,
       activeFilter,
       activeDays,
@@ -57,12 +57,12 @@ class App extends Component {
     return (
       <div id='App' className="App">
         {
-          activeFeature !== null ?
+          activeFeatures !== null ?
             <FeatureSideBar
-            hosts={hosts}
-            activeFeature={activeFeature}
-            vehicles={vehicles}
-            setActiveFeature={setActiveFeature} />
+              hosts={hosts}
+              activeFeatures={activeFeatures}
+              vehicles={vehicles}
+              setActiveFeatures={setActiveFeatures} />
             : null
         }
 
@@ -100,7 +100,7 @@ class App extends Component {
             vehicleColors={vehicleColors}
             vehiclesPerDay={vehiclesPerDay}
             vehiclesPerWeek={vehiclesPerWeek}
-            setActiveFeature={setActiveFeature} />
+            setActiveFeatures={setActiveFeatures} />
         </div>
 
       </div>
@@ -128,7 +128,7 @@ const mapDispatchToProps = (dispatch, props) => ({
   setWeeks: weeks => dispatch(SettingsActions.setWeeks(weeks)),
   setDays: days => dispatch(SettingsActions.setDays(days)),
 
-  setActiveFeature: feature => dispatch(SettingsActions.setActiveFeature(feature)),
+  setActiveFeatures: features => dispatch(SettingsActions.setActiveFeatures(features)),
   setShowRoutes : showAllRoutes => dispatch(SettingsActions.setShowRoutes(showAllRoutes)),
   
   // Solution

@@ -1,5 +1,5 @@
-import React, { PureComponent, Fragment } from 'react';
-import MapGL, { Marker, Layer, Source } from 'react-map-gl';
+import React, { PureComponent } from 'react';
+import MapGL, { Layer, Source } from 'react-map-gl';
 
 import Polyline from '@mapbox/polyline';
 
@@ -10,10 +10,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 const arrayEquals = (a1, a2) => a1.length === a2.length && a1.every(a => a2.includes(a));
 
-const MARKER_ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
-  c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
-  C20.1,15.8,20.2,15.8,20.2,15.7z`;
-const MARKER_SIZE = 20;
 const COLOR_INACTIVE = '#000000';
 
 const dataLayer = {
@@ -49,10 +45,6 @@ const dataLayerBorder = {
     'line-color': '#000000'
   }
 };
-
-const markerIcon = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
-  c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
-  C20.1,15.8,20.2,15.8,20.2,15.7z`;
 
 export default class Mapbox extends PureComponent {
   state = {
@@ -194,7 +186,13 @@ export default class Mapbox extends PureComponent {
       srcEvent: { offsetX, offsetY }
     } = ev;
 
-    const hoveredFeatures = features && features.filter(f => f.layer.id === 'data' || f.layer.id === 'dataInactive');
+    const hoveredFeatures = features && features.reduce((acc, f) => {
+      if (
+        (f.layer.id === 'data' || f.layer.id === 'dataInactive')
+        && (acc.find(af => af.properties.vehicle === f.properties.vehicle) === undefined)
+      ) { acc.push(f); }
+      return acc;
+    }, []);
 
     this.setState({
       hoveredFeatures,
@@ -204,13 +202,14 @@ export default class Mapbox extends PureComponent {
 
   _onClick = ev => {
     const { features } = ev;
-    const { setActiveFeature } = this.props;
-    const activeFeature = features && features.find(f => f.layer.id === 'data' || f.layer.id === 'dataInactive');
+    const { setActiveFeatures } = this.props;
+    const activeFeatures = features && features.filter(f => f.layer.id === 'data' || f.layer.id === 'dataInactive');
 
-    if (activeFeature) {
-      setActiveFeature({ type: 'vehicle', id: activeFeature.properties.vehicle });
+    if (activeFeatures) {
+      // setActiveFeature({ type: 'vehicle', id: activeFeature.properties.vehicle });
+      setActiveFeatures(activeFeatures.map(f => ({ type: 'vehicle', id: f.properties.vehicle })))
     } else {
-      setActiveFeature();
+      setActiveFeatures();
     }
   }
 
@@ -256,7 +255,7 @@ export default class Mapbox extends PureComponent {
     } = this.state;
 
     const {
-      setActiveFeature,
+      setActiveFeatures,
       showAllRoutes
     } = this.props
 
@@ -290,10 +289,10 @@ export default class Mapbox extends PureComponent {
             }
                         {
               showAllRoutes ?
-                <MapMarkers data={hostsInactive} type='inactive' clickHandler={setActiveFeature} />
+                <MapMarkers data={hostsInactive} type='inactive' clickHandler={setActiveFeatures} />
                 : null
             }
-            <MapMarkers data={hosts} type='host' clickHandler={setActiveFeature}/>
+            <MapMarkers data={hosts} type='host' clickHandler={setActiveFeatures}/>
             {this._renderTooltip()}
         </MapGL>
       </div>

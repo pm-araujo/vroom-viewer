@@ -68,7 +68,7 @@ export function resolveWeekDay(day, fromIndex=true) {
   }
 
   const hours = day / 60 / 60;
-  const days = hours / 24;
+  let days = hours / 24;
   const weeks = days / N_WORKDAYS;
 
   if (weeks > 1) {

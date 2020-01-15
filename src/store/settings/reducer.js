@@ -1,5 +1,5 @@
 import {
-  SET_ACTIVE_FEATURE,
+  SET_ACTIVE_FEATURES,
   SET_VEHICLE_COLORS,
   SET_SHOW_ROUTES,
   SET_FILTER,
@@ -8,7 +8,7 @@ import {
 
 
 const initialState = {
-  activeFeature: null,
+  activeFeatures: null,
   activeFilter: Filters.WEEK,
   activeWeeks: null,
   activeDays: null,
@@ -27,10 +27,10 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         showAllRoutes
       };
-    case SET_ACTIVE_FEATURE:
+    case SET_ACTIVE_FEATURES:
       return {
         ...state,
-        activeFeature: payload
+        activeFeatures: payload
       };
     case SET_VEHICLE_COLORS:
       const { vehicleColors } = payload;
