@@ -63,7 +63,7 @@ export default class Mapbox extends PureComponent {
         'raster-tiles': {
             type: 'raster',
             tiles: [
-              'http://tile.osm.org/{z}/{x}/{y}.png'
+              `${window.location.protocol}//tile.osm.org/{z}/{x}/{y}.png`
             ],
             tileSize: 256
         }
