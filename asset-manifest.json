@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/vroom-viewer/static/css/main.ce7e385d.chunk.css",
-    "main.js": "/vroom-viewer/static/js/main.ffb7a23f.chunk.js",
-    "main.js.map": "/vroom-viewer/static/js/main.ffb7a23f.chunk.js.map",
+    "main.js": "/vroom-viewer/static/js/main.bf2afc88.chunk.js",
+    "main.js.map": "/vroom-viewer/static/js/main.bf2afc88.chunk.js.map",
     "runtime-main.js": "/vroom-viewer/static/js/runtime-main.0f96f58b.js",
     "runtime-main.js.map": "/vroom-viewer/static/js/runtime-main.0f96f58b.js.map",
     "static/css/2.7efaf445.chunk.css": "/vroom-viewer/static/css/2.7efaf445.chunk.css",
-    "static/js/2.db0ee74f.chunk.js": "/vroom-viewer/static/js/2.db0ee74f.chunk.js",
-    "static/js/2.db0ee74f.chunk.js.map": "/vroom-viewer/static/js/2.db0ee74f.chunk.js.map",
+    "static/js/2.7c5f62fb.chunk.js": "/vroom-viewer/static/js/2.7c5f62fb.chunk.js",
+    "static/js/2.7c5f62fb.chunk.js.map": "/vroom-viewer/static/js/2.7c5f62fb.chunk.js.map",
     "index.html": "/vroom-viewer/index.html",
-    "precache-manifest.765dbe9ab2af3cfb0b0804ee4f48cf45.js": "/vroom-viewer/precache-manifest.765dbe9ab2af3cfb0b0804ee4f48cf45.js",
+    "precache-manifest.690de141c2ead960ce5b3d3a6fd72149.js": "/vroom-viewer/precache-manifest.690de141c2ead960ce5b3d3a6fd72149.js",
     "service-worker.js": "/vroom-viewer/service-worker.js",
     "static/css/2.7efaf445.chunk.css.map": "/vroom-viewer/static/css/2.7efaf445.chunk.css.map",
     "static/css/main.ce7e385d.chunk.css.map": "/vroom-viewer/static/css/main.ce7e385d.chunk.css.map",
-    "static/js/2.db0ee74f.chunk.js.LICENSE": "/vroom-viewer/static/js/2.db0ee74f.chunk.js.LICENSE"
+    "static/js/2.7c5f62fb.chunk.js.LICENSE": "/vroom-viewer/static/js/2.7c5f62fb.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.0f96f58b.js",
     "static/css/2.7efaf445.chunk.css",
-    "static/js/2.db0ee74f.chunk.js",
+    "static/js/2.7c5f62fb.chunk.js",
     "static/css/main.ce7e385d.chunk.css",
-    "static/js/main.ffb7a23f.chunk.js"
+    "static/js/main.bf2afc88.chunk.js"
   ]
 }
