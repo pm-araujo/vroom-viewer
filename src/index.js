@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
@@ -16,7 +16,7 @@ const store = initStore();
 
 ReactDOM.render(
   <Provider store={store} >
-    <Router>
+    <Router basename='/'>
       <Switch>
         <Route path='/table' component={ScheduleTable} />
         <Route path='/' exact component={App} />
