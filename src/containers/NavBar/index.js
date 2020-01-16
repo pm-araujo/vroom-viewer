@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
-
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import { ButtonSelect, FileInput } from '../../components';
-
 import { resolveTime } from '../../utils';
 
 import './style.css';
@@ -65,6 +64,8 @@ const durationCalc = (vehicles, active) => {
 const NavBar = (props) => {
   const {
     loadSolution,
+    clearSolution,
+
     solutionStatus,
     vehiclesPerDay,
     vehiclesPerWeek,
@@ -107,17 +108,26 @@ const NavBar = (props) => {
             <ButtonSelect title='Vehicles' isActive={activeFilter === 'VEHICLE'}
               data={vehicles} colors={vehicleColors.map(({ VEHICLE }) => VEHICLE)} onChange={setVehicles}
               getWeeksByVehicles={getWeeksByVehicles} getDaysByVehicles={getDaysByVehicles} />
-
             <div>
-              <label>
-              <input
-                name='showAllRoutes'
-                type='checkbox'
-                checked={showAllRoutes}
-                onChange={({ target }) => setShowRoutes(target.checked)}
-                />
-                Show inactive routes
-              </label>
+              <div>
+                <label>
+                <input
+                  name='showAllRoutes'
+                  type='checkbox'
+                  checked={showAllRoutes}
+                  onChange={({ target }) => setShowRoutes(target.checked)}
+                  />
+                  Show inactive routes
+                </label>
+              </div>
+              <Link to='/table' target='_blank' style={{ textDecoration: 'none' }} >
+                <button>
+                  Schedule Table
+                </button>
+              </Link>
+              <button onClick={clearSolution}>
+                Clear Solution
+              </button>
             </div>
           </div>
             

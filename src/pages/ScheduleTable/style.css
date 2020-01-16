@@ -1,0 +1,77 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+body {
+  overflow: scroll;
+  font-size: 14px;
+}
+.ScheduleTable {
+}
+
+.ScheduleTable-Header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  width: max-content;
+}
+
+.ScheduleTable-HeaderCol {
+  background: white;
+  border: 2px solid #2b2b2b;
+  padding: 10px;
+  width: 80px;
+  height: 40px;
+}
+
+.ScheduleTable-HeaderCol + .ScheduleTable-HeaderCol {
+  border-left: 0;
+}
+
+.ScheduleTable-Content {
+  display: flex;
+  margin-top: 40px;
+  width: max-content;
+}
+
+.ScheduleTable-HostCell {
+  padding: 10px;
+  border: 2px solid #2b2b2b;
+  border-top: 0;
+  width: 80px;
+  height: 40px;
+  text-align: center;
+}
+
+/*
+.ScheduleTable-HostRow {
+  display: flex;
+}
+
+.ScheduleTable-HostPickup {
+  border-bottom: 2px solid #2b2b2b;
+  border-right: 2px solid #2b2b2b;
+  padding: 20px;
+  width: 60px;
+  height: 20px;
+}
+*/
+
+.ScheduleTable-DayColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.ScheduleTable-HostPickup {
+  background: white;
+  border-right: 2px solid #2b2b2b;
+  border-bottom: 2px solid #2b2b2b;
+  padding: 10px;
+  width: 80px;
+  height: 40px;
+}
+
+.ScheduleTable-HostPickup:hover {
+  filter: brightness(60%);
+}

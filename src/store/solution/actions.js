@@ -1,4 +1,9 @@
-import { LOAD_SOLUTION, SET_STATUS, LoadStatus } from './types';
+import {
+  CLEAR_SOLUTION,
+  LOAD_SOLUTION,
+  SET_STATUS,
+  LoadStatus
+} from './types';
 
 import { genVehicleColors, setWeeks } from '../settings/actions';
 
@@ -55,3 +60,9 @@ export const loadSolution = file => (dispatch) => {
       return dispatch(setStatus(LoadStatus.EMPTY));
     });
 };
+
+export const clearSolution = () => (dispatch) => {
+  return dispatch({
+    type: CLEAR_SOLUTION
+  });
+}

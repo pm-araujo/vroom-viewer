@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Mapbox, NavBar } from './containers';
-import { FeatureSideBar } from './components';
-import './App.css';
+import { Mapbox, NavBar } from '../../containers';
+import { FeatureSideBar } from '../../components';
 
-import * as SettingsActions from './store/settings/actions';
-import * as SolutionActions from './store/solution/actions';
+import * as SettingsActions from '../../store/settings/actions';
+import * as SolutionActions from '../../store/solution/actions';
 
-import * as SolutionSelectors from './store/solution/selectors';
+import * as SolutionSelectors from '../../store/solution/selectors';
+
+import './style.css';
 
 class App extends Component {
   state = {
@@ -19,6 +20,7 @@ class App extends Component {
       settings,
       solution,
       loadSolution,
+      clearSolution,
 
       // Filter setters
       setDays,
@@ -70,6 +72,8 @@ class App extends Component {
           <NavBar
             solutionStatus={solutionStatus}
             loadSolution={loadSolution}
+            clearSolution={clearSolution}
+
             setDays={setDays}
             setVehicles={setVehicles}
             setWeeks={setWeeks}
@@ -132,7 +136,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   setShowRoutes : showAllRoutes => dispatch(SettingsActions.setShowRoutes(showAllRoutes)),
   
   // Solution
-  loadSolution: file => dispatch(SolutionActions.loadSolution(file))
+  loadSolution: file => dispatch(SolutionActions.loadSolution(file)),
+  clearSolution: () => dispatch(SolutionActions.clearSolution())
 });
 
 export default connect(
